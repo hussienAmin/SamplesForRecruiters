@@ -20,3 +20,8 @@ namespace KafApp.Repo.Server
         }
         HttpClientService service;
 
+        public async Task<KafQueryResult> GetAllPersons<T>() where T : KafEntity
+        {
+             return await service.GetAsync($"{typeof(T).Name}/GetAllPersons");
+        }
+}
