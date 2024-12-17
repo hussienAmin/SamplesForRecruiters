@@ -1,6 +1,6 @@
 # **KafApp**  
 *KafApp is a comprehensive system for managing sales, inventory, and employee operations with additional features like news subscriptions, e-invoice integration, and product showcasing.*
-
+![logo]((https://raw.githubusercontent.com/hussienAmin/SamplesForRecruiters/refs/heads/main/1734443942560.jpg)
 ## **Features**  
 - **Sales Management**:  
   Manage sales operations, including basket processing and invoice generation.  
