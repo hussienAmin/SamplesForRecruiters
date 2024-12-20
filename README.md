@@ -1,3 +1,20 @@
+# Samples for Recruiters  
+Welcome to my portfolio of code samples, demonstrating my expertise in software development.  
+
+## Technologies Featured  
+- C# and .NET Core  
+- Entity Framework  
+- MAUI for mobile and desktop applications  
+- SQL Server  
+
+## Structure  
+1. **Web APIs**  
+   - [Project Name] - Highlights best practices in API development with .NET Core.  
+2. **Desktop Applications**  
+   - [Project Name] - Showcases WPF with MVVM and dependency injection.  
+3. **Mobile Applications**  
+   - [Project Name] - Demonstrates mobile-first solutions using MAUI.
+
 # **Bonus**  
 *Bonus is a comprehensive system for managing sales, inventory, and employee operations , e-invoice integration, and product showcasing.*
 
