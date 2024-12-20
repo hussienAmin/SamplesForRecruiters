@@ -1,4 +1,4 @@
-# Above
+
 # Samples for Recruiters  
 Welcome to my portfolio of code samples, demonstrating my expertise in software development.  
 # Introduction  
