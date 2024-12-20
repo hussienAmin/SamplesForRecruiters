@@ -1,4 +1,4 @@
-# above
+# Above
 # Samples for Recruiters  
 Welcome to my portfolio of code samples, demonstrating my expertise in software development.  
 # Introduction  
@@ -10,7 +10,7 @@ Learn more about [Introduction](#introduction) or [How It Works](#how-it-works).
 # How It Works  
 This section explains how it works.
 ## Technologies Featured  
-- C# and .NET Core  [above]
+- C# and .NET Core  [Above]above
 - Entity Framework  
 - MAUI for mobile and desktop applications  
 - SQL Server  
