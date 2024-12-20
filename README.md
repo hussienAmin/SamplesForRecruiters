@@ -28,7 +28,7 @@ This project demonstrates a WPF application using the MVVM design pattern and De
 - Dependency Injection with [Microsoft.Extensions.DependencyInjection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection).  
 - Asynchronous data operations using `IAsyncRelayCommand` from Community Toolkit MVVM.  
 - Modern UI design principles.  
-
+# df
 ## Technologies  
 - **WPF**  
 - **MVVM Pattern**  
