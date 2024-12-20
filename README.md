@@ -1,8 +1,9 @@
+# above
 # Samples for Recruiters  
 Welcome to my portfolio of code samples, demonstrating my expertise in software development.  
 
 ## Technologies Featured  
-- C# and .NET Core  
+- C# and .NET Core  [above]
 - Entity Framework  
 - MAUI for mobile and desktop applications  
 - SQL Server  
