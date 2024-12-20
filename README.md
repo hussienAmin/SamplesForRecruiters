@@ -5,7 +5,7 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 
 
 ## Technologies
-- [C# and .NET Core](#C# and .NET Core)
+- [C# and .NET Core](## C# and .NET Core)
 - Entity Framework  
 - MAUI for mobile and desktop applications  
 - SQL Server  
