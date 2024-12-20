@@ -6,7 +6,7 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 
 ## Technologies
 - [df](##df)
-- [C# and .NET Core](## C# and .NET Core)
+- [C# and .NET Core](##C#)
 - Entity Framework  
 - MAUI for mobile and desktop applications  
 - SQL Server  
@@ -28,7 +28,7 @@ This project demonstrates a WPF application using the MVVM design pattern and De
 - Dependency Injection with [Microsoft.Extensions.DependencyInjection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection).  
 - Asynchronous data operations using `IAsyncRelayCommand` from Community Toolkit MVVM.  
 - Modern UI design principles.  
-# df
+
 ## Technologies  
 - **WPF**  
 - **MVVM Pattern**  
