@@ -10,7 +10,7 @@ Learn more about [Introduction](#introduction) or [How It Works](#how-it-works).
 # How It Works  
 This section explains how it works.
 ## Technologies Featured  
-- C# and .NET Core  [Above]above
+- C# and .NET Core  [Above](#above)
 - Entity Framework  
 - MAUI for mobile and desktop applications  
 - SQL Server  
