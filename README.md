@@ -15,6 +15,32 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 3. **Mobile Applications**  
    - [Project Name] - Demonstrates mobile-first solutions using MAUI.
 
+# WPF with MVVM and Dependency Injection  
+
+This project demonstrates a WPF application using the MVVM design pattern and Dependency Injection (DI) for decoupled, testable, and maintainable code.  
+
+## Key Features  
+- MVVM for separation of concerns.  
+- Dependency Injection with [Microsoft.Extensions.DependencyInjection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection).  
+- Asynchronous data operations using `IAsyncRelayCommand` from Community Toolkit MVVM.  
+- Modern UI design principles.  
+
+## Technologies  
+- **WPF**  
+- **MVVM Pattern**  
+- **Dependency Injection**  
+- **Community Toolkit MVVM**  
+- **Entity Framework Core**  
+
+## Application Flow  
+1. **Login Screen**  
+   - Validates user credentials.  
+   - Uses DI to inject authentication services.  
+2. **Dashboard**  
+   - Displays user-specific data fetched from a repository.  
+   - Commands and bindings demonstrate MVVM principles.  
+3. **Settings**  
+   - Save user preferences using a service injected into the ViewModel.
 # **Bonus**  
 *Bonus is a comprehensive system for managing sales, inventory, and employee operations , e-invoice integration, and product showcasing.*
 
