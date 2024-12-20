@@ -1,14 +1,11 @@
 
 # Samples for Recruiters  
+
+## Introduction  
 Welcome to my portfolio of code samples, demonstrating my expertise in software development.  
-# Introduction  
-This is the introduction section.  
 
-# Features  
-Learn more about [Introduction](#introduction) or [How It Works](#how-it-works).  
 
-# How It Works  
-This section explains how it works.
+
 ## Technologies Featured  
 - C# and .NET Core  [Above](#above)
 - Entity Framework  
