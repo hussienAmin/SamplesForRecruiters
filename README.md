@@ -5,7 +5,7 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 
 
 ## Technologies
-- [df](##df)
+- [df](##c)
 - [C# and .NET Core](##C)
 - Entity Framework  
 - MAUI for mobile and desktop applications  
