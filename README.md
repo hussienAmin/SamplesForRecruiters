@@ -1,11 +1,11 @@
-# df#
+# dft#
 ## Introduction  
 Welcome to my portfolio of code samples, demonstrating my expertise in software development.  
 
 
 
 ## Technologies
--[df](#df)
+- [df](#df)
 - [C# and .NET Core](## C# and .NET Core)
 - Entity Framework  
 - MAUI for mobile and desktop applications  
