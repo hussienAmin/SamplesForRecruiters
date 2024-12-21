@@ -8,7 +8,7 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 
 - [C# and .NET Core](##C)
 - [Entity Framework](##Entity)
-- [Desktop](###Desktop)
+- [Desktop](###Desktohp)
 - MAUI for mobile and desktop applications  
 - SQL Server  
 
