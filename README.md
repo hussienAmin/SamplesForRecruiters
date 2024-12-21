@@ -6,12 +6,14 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 
 ## Technologies
 
-- [C# and .NET Core](#c-and-.net-core)
+- [C# and .NET Core](#csharp)
 - [Entity Framework](##Entity)
 - [Desktop](#desktop)
 - MAUI for mobile and desktop applications  
 - SQL Server  
-
+<a name="csharp"></a>  
+## Custom Section  
+Go to [Custom Section](#custom-anchor).
 ### C and .NET Core
 ### Entity Framework
 ### Desktop
