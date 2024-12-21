@@ -12,8 +12,11 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 - MAUI for mobile and desktop applications  
 - SQL Server  
 <a name="dd"></a>  
-## Custom Section  
+
 Go to [dd](#dd).
+<a name="custom-anchor"></a>  
+## Custom Section  
+Go to [Custom Section](#custom-anchor).
 ### C and .NET Core
 ### Entity Framework
 ### Desktop
