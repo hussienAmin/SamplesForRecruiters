@@ -7,14 +7,16 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 # Technologies
 
 - [Backend](#backend)
-- [Desktop](#desktop)
+- [WPF](#wpf)
+- [MAUI](#maui)
 - MAUI for mobile and desktop applications  
 - SQL Server  
 
 ## Backend
 - [Entity Framework](#entity-framework)
 ### Entity Framework
-## Desktop
+## WPF
+## MAUI
 ## Structure  
 1. **Web APIs**  
    - [Project Name] - Highlights best practices in API development with .NET Core.  
