@@ -11,9 +11,6 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 - [Desktop](#desktop)
 - MAUI for mobile and desktop applications  
 - SQL Server  
-<a name="dd"></a>  
-
-Go to [dd](#dd).
 <a name="custom-anchor"></a>  
 ## Custom Section  
 Go to [Custom Section](#custom-anchor).
