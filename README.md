@@ -11,7 +11,7 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 - [Desktop](#desktop)
 - MAUI for mobile and desktop applications  
 - SQL Server  
-<a name="dd"></a>  
+<a name="#dd"></a>  
 ## Custom Section  
 Go to [Custom Section](#dd).
 ### C and .NET Core
