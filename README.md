@@ -12,7 +12,7 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 - MAUI for mobile and desktop applications  
 - SQL Server  
 
-### C and .NET Core
+### C# and .NET Core
 ### Entity Framework
 ### Desktop
 ## Structure  
