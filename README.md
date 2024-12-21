@@ -6,13 +6,13 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 
 # Technologies
 
-- [C# and .NET Core](#c#)
+- [Backend](#backend)
 - [Entity Framework](#entity-framework)
 - [Desktop](#desktop)
 - MAUI for mobile and desktop applications  
 - SQL Server  
 
-## C#
+## Backend
 ### Entity Framework
 ## Desktop
 ## Structure  
