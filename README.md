@@ -7,12 +7,12 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 # Technologies
 
 - [Backend](#backend)
-- [Entity Framework](#entity-framework)
 - [Desktop](#desktop)
 - MAUI for mobile and desktop applications  
 - SQL Server  
 
 ## Backend
+- [Entity Framework](#entity-framework)
 ### Entity Framework
 ## Desktop
 ## Structure  
