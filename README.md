@@ -6,15 +6,15 @@ Welcome to my portfolio of code samples, demonstrating my expertise in software 
 
 ## Technologies
 
-- [C# and .NET Core](#c)
+- [C# and .NET Core](#c#_and-.net-core)
 - [Entity Framework](##Entity)
-- [Desktop](#desktop-gdg)
+- [Desktop](#desktop)
 - MAUI for mobile and desktop applications  
 - SQL Server  
 
 ### C and .NET Core
 ### Entity Framework
-### Desktop gdg
+### Desktop
 ## Structure  
 1. **Web APIs**  
    - [Project Name] - Highlights best practices in API development with .NET Core.  
