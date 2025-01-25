@@ -1,68 +1,66 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using ClientShared;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using KafApp.Models;
 using KafApp.Repo;
+using KafApp.Reports;
 using KafApp.View;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Documents;
 
 namespace KafApp.ViewModels
 {
-    
-    public partial class SupplierViewModel(Supplier md) : ObservableObject
+
+    public partial class SupplierViewModel(Supplier md, SuppliersViewModel ParentVm) : PersonViewModel<Supplier>(md), IPayableInvoice
     {
-        public bool CanDelete { get { return Helper.currentSesstion.DeleteSupplier && md.Credit==0; } }
-        public bool CanEdit { get { return Helper.currentSesstion.EditSupplier; } }
+        public Supplier Md => md;
+        //public bool CanDelete { get { return Helper.currentSesstion.DeleteSupplier && md.Credit==0; } }
+        //public bool CanEdit { get { return Helper.currentSesstion.EditSupplier; } }
 
-        public ObservableCollection<Supply> SupplysList;
-        public ObservableCollection<SupplierReturn> SupplierReturnsList;
-        public ObservableCollection<SupplierPayment> SupplierPaymentList;
+        public ObservableCollection<Supply> SupplysList = new();
+        public ObservableCollection<SupplierReturn> SupplierReturnsList = new();
+        public ObservableCollection<SupplierPayment> SupplierPaymentList = new();
 
-        public string Name { get => md.Name; set { md.Name = value; OnPropertyChanged(); } }
-        public string Address { get => md.Address; set { md.Address = value; OnPropertyChanged(); } }
-        public string Mail { get => md.Mail; set { md.Mail = value; OnPropertyChanged(); } }
-        public string Phone { get => md.Phone; set { md.Phone = value; OnPropertyChanged(); } }
-        public string Notes { get => md.Notes; set { md.Notes = value; OnPropertyChanged(); } }
-        public int Id { get => md.Id; set { md.Id = value; OnPropertyChanged(); } }
-        public bool IsArchived { get => md.IsArchived; set { md.IsArchived = value; OnPropertyChanged(); } }
+
         public bool IsFav { get => md.IsFav; set { md.IsFav = value; OnPropertyChanged(); } }
-       
-        
-        public decimal Paid { get => md.Paid; set { md.Paid = value; OnPropertyChanged(); } }
-        public decimal SupplyTotal { get => md.SupplyTotal; set { md.SupplyTotal = value; OnPropertyChanged(); } }
-        public decimal Perior { get => md.Perior; set { md.Perior = value; OnPropertyChanged(); } }
-        public decimal SupplierReturnTotal { get => md.SupplierReturnTotal; set { md.SupplierReturnTotal = value; OnPropertyChanged(); } }
-        public decimal Total { get => md.Credit; set { OnPropertyChanged(); } }
 
-       
+        public long Paid { get => md.Paid; set { md.Paid = value; OnPropertyChanged(); } }
+        public long SupplyTotal { get => md.SupplyTotal; set { md.SupplyTotal = value; OnPropertyChanged(); } }
+        public long ConstCredit { get => md.ConstCredit; set { md.ConstCredit = value; OnPropertyChanged(); } }
+        public int MaxCredit { get => md.MaxCredit; set { md.MaxCredit = value; OnPropertyChanged(); } }
+        public long SupplierReturnTotal { get => md.SupplierReturnTotal; set { md.SupplierReturnTotal = value; OnPropertyChanged(); } }
+        public long Total { get => md.Credit; set { OnPropertyChanged(); } }
 
 
-        public delegate void DeletedHandler();
-        public event DeletedHandler Deleted;
 
-        [RelayCommand]
-        private async void show()
+        KafSearchOption option = new() { ParentId = md.Id, ExecptArchived = true };
+        public override async void DisplayUI()
         {
-            SupplysList = new();
-            SupplierReturnsList = new();
-            SupplierPaymentList = new();
-            AppNavigator.ShowSupplierView(this);
-            RefreshData();
-        }
-        async void RefreshData()
-        {
-            await Access.GetSupplierData(md);
-            ReCalculate();
+            base.DisplayUI();
+            await RefreshData();
+            NavigationService.PushParent(new SupplierView(this));
 
         }
-        internal void ReCalculate()
+        async Task RefreshData()
         {
+            md.SupplysList = await AccessService.GetSupplys(option);
+            md.SupplierReturnsList = await AccessService.GetSupplierReturns(option);
+            md.SupplierPaymentsList = await AccessService.GetPayments<SupplierPayment>(option);
             md.SupplysList.ToObservable(SupplysList);
             md.SupplierReturnsList.ToObservable(SupplierReturnsList);
             md.SupplierPaymentsList.ToObservable(SupplierPaymentList);
+            ReCalculate();
+
+        }
+        internal void ReCalculate(long AddConstCredit = 0)
+        {
+
+            ConstCredit += AddConstCredit;
             SupplyTotal = SupplysList.Select(g => g.Rest).Sum();
             SupplierReturnTotal = SupplierReturnsList.Select(g => g.Rest).Sum();
-            Paid = SupplierPaymentList.Select(g => g.Value).Sum();
+            Paid = SupplierPaymentList.Select(g => g.Amount).Sum();
             Total = 0;
 
         }
@@ -70,173 +68,170 @@ namespace KafApp.ViewModels
         #region Editing
 
 
-        void DeleteMe()
+        protected override void DeleteMe()
         {
-           
-            SuppliersViewModel.Instance.RemoveFromList(md);
-            Deleted?.Invoke();
+            base.DeleteMe();
+            ParentVm.RemoveFromList(md);
+            NavigationService.CloseSideBar();
         }
 
         [RelayCommand]
-        private async void delete()
+        private async void AddNewSupply()
         {
-            if (await Access.RemoveSupplier(Id))
-                DeleteMe();
-               
-
+            NewSupplyViewModel vm = new NewSupplyViewModel();
+            vm.DisplayUI(this);
         }
+        [RelayCommand]
+        private async void AddNewSupplierReturn()
+        {
+            NewSupplierReturnViewModel vm = new NewSupplierReturnViewModel(this);
+            vm.DisplayUI();
+        }
+
+
 
 
         [RelayCommand]
         private async void updateName()
         {
-            var namesArray = SuppliersViewModel.Instance.Supplierslist.Select(g => g.Name).ToArray();
+            var namesArray = ParentVm.Supplierslist.Select(g => g.Name).ToArray();
+            await base.UpdateName(namesArray);
 
-            if (Helper.GetNonNullableNormalText( out string nn, namesArray))
-            {
-                if (await Access.UpdateSupplierName(Id,nn))
-                    Name = nn;
-            }
-        }
-
-        [RelayCommand]
-        private async void updateEmail()
-        {
-            if (Helper.GetNullableNormalText( out string nn))
-            {
-                if (await Access.UpdateSupplierMail(Id, nn))
-                    Mail = nn;
-            }
-        }
-
-
-
-        [RelayCommand]
-        private async void updatephone()
-        {
-            if (Helper.GetInteger( out int nn))
-            {
-                if (await Access.UpdateSupplierPhone(Id, nn.ToString()))
-                     Phone = nn.ToString();
-                
-            }
-        }
-        [RelayCommand]
-        private async void updateaddress()
-        {
-            if (Helper.GetNullableNormalText( out string nn))
-            {
-                if (await Access.UpdateSupplierAddress(Id, nn))
-                    Address = nn;
-            }
-        }
-        [RelayCommand]
-        private async void updatenotes()
-        {
-            if (Helper.GetNullableFullText( out string nn))
-            {
-                if (await Access.UpdateSupplierNotes(Id, nn))
-                     Notes = nn;
-            }
-        }
-
-
-
-      
-
-        [RelayCommand]
-        private async void archive()
-        {
-            if (await Access.ArchiveSupplier(Id))
-            {
-                IsArchived = true;
-                DeleteMe();
-            }
-            
-
-        }
-        [RelayCommand]
-        private async void restore()
-        {
-            if(await Access.RestoreSupplier(Id))
-            {
-                IsArchived = true;
-                DeleteMe();
-            }
         }
         [RelayCommand]
         private async void changefav()
         {
             if (IsFav)
             {
-                if (await Access.DeMarkSupplier(Id))
+                if (await AccessService.DeMark<Supplier>(Id))
                     IsFav = false;
             }
             else
             {
-                if (await Access.MarkSupplier(Id))
+                if (await AccessService.Mark<Supplier>(Id))
                     IsFav = true;
             }
+
         }
+        [RelayCommand]
+        private async void updateMaxCredit()
+        {
+            if (Helper.GetInteger(out int nn))
+            {
+                if (await AccessService.UpdateSupplierMaxCredit(Id, nn))
+                    MaxCredit = nn;
+
+            }
+        }
+
         #endregion
-        [RelayCommand]
-        private void updateview()
-           => AppNavigator.ShowUpdateSupplierView(this);
 
-        [RelayCommand]
-        private void generateReport()
-           => Helper.Report(md);
+
+
+
 
 
         [RelayCommand]
-        private async void AddNew()
+        internal void ShowPayment(object md)
         {
-            if (await Access.AddSupplier(md))
-                    SuppliersViewModel.Instance.AddToList(md); 
+            // var vmd = new paymen((SupplyPayment)md);
+            // vmd.Deleted +=async ()=>await RefreshData();
+            // vmd.DataChanged += ReCalculate;
+            //vmd.Show();
         }
-
-        internal void ShowSupply(Supply md)
+        [RelayCommand]
+        internal void ShowInvoice(object md)
         {
-            var vmd = new SupplyViewModel(md);
-            vmd.Deleted += RefreshData;
+            var vmd = new SupplyViewModel((Supply)md);
+            vmd.Deleted += async () => await RefreshData();
             vmd.DataChanged += ReCalculate;
-            AppNavigator.ShowSupply(vmd);
+            vmd.Show();
+        }
+        [RelayCommand]
+        internal void ShowReturn(object md)
+        {
+            var vmd = new SupplierReturnViewModel((SupplierReturn)md);
+            vmd.Deleted += async () => await RefreshData();
+            vmd.DataChanged += ReCalculate;
+            vmd.Show();
+        }
+        [RelayCommand]
+        private void GenerateReport()
+        {
+            var report = new SupplierReport(md);
+            report.ShowReport();
         }
         [RelayCommand]
         private void AddNewPayment()
         {
-            var vmd = new NewSupplierPaymentViewModel(this);
-            
-            AppNavigator.AddNewSupplyPayment(vmd);
+            BaseNewPaymentViewModel vmd = new BaseNewPaymentViewModel(this);
+            vmd.Show();
         }
+        public async Task<bool> AddPayment(BasePayment pay)
+        {
 
+            SupplierPayment payment = new SupplierPayment();
+            payment.Amount = pay.Amount;
+            payment.Notes = pay.Notes;
+            payment.ReferenceNumber = pay.ReferenceNumber;
+            payment.PaymentId = pay.PaymentId;
+            payment.SessionId = Helper.currentSesstion.Session.Id;
+            payment.SupplierId = Id;
+            var result = await AccessService.AddNewSupplierPayment(payment);
+            if (result.IsQueryCompleted)
+            {
+                var savedmd = result.GetObject<SupplierPayment>();
+
+
+                SupplierPaymentList.Add(savedmd);
+                md.SupplierPaymentsList.Add(savedmd);
+
+                ReCalculate();
+
+                return true;
+            }
+            return false;
+        }
         internal void Add(SupplierPayment mmd)
         {
             SupplierPaymentList.Add(mmd);
             md.SupplierPaymentsList.Add(mmd);
-            ReCalculate();  
+            ReCalculate();
         }
 
         internal async void EditPayment(SupplierPayment pay)
         {
-            if (Helper.GetDecimal(out decimal nn,max:(md.Credit+pay.Value)))
+            if (Helper.GetDecimal(out long nn, max: (md.Credit + pay.Amount)))
             {
-                if (await Access.UpdateSupplierPaymentValue(pay.Id, nn))
+                if (await AccessService.UpdateSupplierPaymentValue(pay.Id, nn))
                 {
-                    pay.Value= nn;
+                    pay.Amount = nn;
                     ReCalculate();
+                    NotificationService.DoneAlert();
                 }
             }
         }
-
+        internal async void ArchivePayment(SupplierPayment pay)
+        {
+            if (Helper.CanArchive())
+                if (await AccessService.ArchiveSupplierPayment(pay.Id))
+                {
+                    ConstCredit = ConstCredit.KAfSubtract(pay.Amount);
+                    md.SupplierPaymentsList.Remove(pay);
+                    ReCalculate();
+                    NotificationService.DoneAlert();
+                }
+        }
         internal async Task DeletaPaymentAsync(SupplierPayment pay)
         {
-            if (await Access.DeleteSupplierPayment(pay.Id))
-            {
-                md.SupplierPaymentsList.Remove(pay);
-                SupplierPaymentList.Remove(pay);
-                ReCalculate();
-            }
+            if (Helper.CanDelete())
+                if (await AccessService.DeleteSupplierPayment(pay.Id))
+                {
+                    md.SupplierPaymentsList.Remove(pay);
+                    SupplierPaymentList.Remove(pay);
+                    ReCalculate();
+                    NotificationService.DoneAlert();
+                }
         }
-    } 
     }
+}
